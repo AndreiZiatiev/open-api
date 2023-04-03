@@ -29,6 +29,10 @@ export interface Attachment {
      */
     contentType?: string;
     /**
+     * Format of the attached file.
+     */
+    fileFormat?: string;
+    /**
      * Human language of the content (BCP-47)
      */
     language?: Locale;

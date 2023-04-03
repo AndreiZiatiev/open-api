@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { Address } from './address';
-import { ContactPoint } from './contactPoint';
 import { ContactType } from './contactType';
 import { Entity } from './entity';
 import { Identity } from './identity';
@@ -30,11 +29,7 @@ export interface Contact {
     /**
      * Type of contact.
      */
-    type?: ContactType;
-    /**
-     * A contact detail.
-     */
-    telecom?: Array<ContactPoint>;
+    type: ContactType;
     /**
      * One or more addresses for the contact.
      */
