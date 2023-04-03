@@ -1,0 +1,15 @@
+export * from './contacts.service';
+import { ContactsService } from './contacts.service';
+export * from './locations.service';
+import { LocationsService } from './locations.service';
+export * from './partyContacts.service';
+import { PartyContactsService } from './partyContacts.service';
+export * from './partyLocations.service';
+import { PartyLocationsService } from './partyLocations.service';
+export * from './partyPersons.service';
+import { PartyPersonsService } from './partyPersons.service';
+export * from './persons.service';
+import { PersonsService } from './persons.service';
+export * from './users.service';
+import { UsersService } from './users.service';
+export const APIS = [ContactsService, LocationsService, PartyContactsService, PartyLocationsService, PartyPersonsService, PersonsService, UsersService];
