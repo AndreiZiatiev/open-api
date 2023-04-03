@@ -17,6 +17,10 @@ export interface UserPhone {
     /**
      * The user's home or cell phone.
      */
+    mobile?: string;
+    /**
+     * The user's home or cell phone.
+     */
     home: string;
     /**
      * The user's work phone.
