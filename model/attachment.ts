@@ -56,4 +56,8 @@ export interface Attachment {
      * Date attachment was first created
      */
     creation?: Date;
+    /**
+     * Format of the attached file.
+     */
+    fileFormat?: string;
 }
