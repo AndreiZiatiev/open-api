@@ -5,7 +5,10 @@ import { HttpClient } from '@angular/common/http';
 
 import { ContactsService } from './api/contacts.service';
 import { LocationsService } from './api/locations.service';
+import { PartiesService } from './api/parties.service';
+import { PartyAccountsService } from './api/partyAccounts.service';
 import { PartyContactsService } from './api/partyContacts.service';
+import { PartyLegalEntitiesService } from './api/partyLegalEntities.service';
 import { PartyLocationsService } from './api/partyLocations.service';
 import { PartyPersonsService } from './api/partyPersons.service';
 import { PersonsService } from './api/persons.service';
@@ -18,7 +21,10 @@ import { UsersService } from './api/users.service';
   providers: [
     ContactsService,
     LocationsService,
+    PartiesService,
+    PartyAccountsService,
     PartyContactsService,
+    PartyLegalEntitiesService,
     PartyLocationsService,
     PartyPersonsService,
     PersonsService,

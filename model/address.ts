@@ -27,6 +27,14 @@ export interface Address {
      */
     header?: Element;
     /**
+     * What address use for.
+     */
+    use?: AddressUse;
+    /**
+     * Type of address.
+     */
+    type?: AddressType;
+    /**
      * Text representation of the address
      */
     text?: string;
@@ -54,12 +62,4 @@ export interface Address {
      * Country (e.g. can be ISO 3166 2 or 3 letter code)
      */
     country?: Country;
-    /**
-     * What address use for.
-     */
-    useFor?: AddressUse;
-    /**
-     * Type of address.
-     */
-    addressType?: AddressType;
 }

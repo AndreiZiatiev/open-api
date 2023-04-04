@@ -58,7 +58,7 @@ export class PartyContactsService {
     /**
      * CreateContact
      * Create new Contact. Validate Contact not yet exist.
-     * @param partyId Party Id to fetch and put records
+     * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
      * @param body Contact data specification for update.
      * @param bearer JWT Bearer token
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -112,7 +112,7 @@ export class PartyContactsService {
     /**
      * GetContact
      * Get contact or list of contacts from service.
-     * @param partyId Party Id to fetch and put records
+     * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
      * @param contactId Contact Id to fetch and put records
      * @param bearer JWT Bearer token
      * @param options Options specified additional requirements for returned entity. For example reconcile option will require to send events to data lake and mark as reconciliation. 
@@ -181,7 +181,7 @@ export class PartyContactsService {
     /**
      * GetContactList
      * Get contact or list of contacts from service.
-     * @param partyId Party Id to fetch and put records
+     * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
      * @param bearer JWT Bearer token
      * @param options Options specified additional requirements for returned entity. For example reconcile option will require to send events to data lake and mark as reconciliation. 
      * @param startTime Beginning of time window specified to limit objects with last updated in this time window.
@@ -250,7 +250,7 @@ export class PartyContactsService {
     /**
      * ModifyContact
      * Change Contact properties to values specified in request. Property not specified will remain same. No element of any collection will be deleted. 
-     * @param partyId Party Id to fetch and put records
+     * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
      * @param contactId Contact Id to fetch and put records
      * @param body Contact data specification for update.
      * @param bearer JWT Bearer token
@@ -309,7 +309,7 @@ export class PartyContactsService {
     /**
      * UpdateContact
      * Change contact specification. Contact will be created if not exist.
-     * @param partyId Party Id to fetch and put records
+     * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
      * @param contactId Contact Id to fetch and put records
      * @param body Contact data specification for update.
      * @param bearer JWT Bearer token

@@ -59,7 +59,7 @@ export class PartyPersonsService {
      * CreatePerson
      * Create new Person. Validate Person not yet exist.
      * @param xEntityPartyId Party folder maintained by.
-     * @param partyId Party Id to fetch and put records
+     * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
      * @param body Person data specification for update.
      * @param bearer JWT Bearer token
      * @param xAccessReference Reference to resource/file which contains access details
@@ -125,7 +125,7 @@ export class PartyPersonsService {
     /**
      * GetPerson
      * Get person or list of persons from service.
-     * @param partyId Party Id to fetch and put records
+     * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
      * @param personId Person Id to fetch and put records
      * @param xEntityPartyId Party folder maintained by.
      * @param bearer JWT Bearer token
@@ -207,7 +207,7 @@ export class PartyPersonsService {
     /**
      * GetPersonList
      * Get person or list of persons from service.
-     * @param partyId Party Id to fetch and put records
+     * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
      * @param xEntityPartyId Party folder maintained by.
      * @param bearer JWT Bearer token
      * @param options Options specified additional requirements for returned entity. For example reconcile option will require to send events to data lake and mark as reconciliation. 
@@ -290,7 +290,7 @@ export class PartyPersonsService {
      * ModifyPerson
      * Change Person properties to values specified in request. Property not specified will remain same. No element of any collection will be deleted. 
      * @param xEntityPartyId Party folder maintained by.
-     * @param partyId Party Id to fetch and put records
+     * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
      * @param personId Person Id to fetch and put records
      * @param body Person data specification for update.
      * @param bearer JWT Bearer token
@@ -362,7 +362,7 @@ export class PartyPersonsService {
      * UpdatePerson
      * Change person specification. Person will be created if not exist.
      * @param xEntityPartyId Party folder maintained by.
-     * @param partyId Party Id to fetch and put records
+     * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
      * @param personId Person Id to fetch and put records
      * @param body Person data specification for update.
      * @param bearer JWT Bearer token

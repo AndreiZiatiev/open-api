@@ -17,14 +17,14 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Location } from '../model/location';
+import { LegalEntity } from '../model/legalEntity';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class PartyLocationsService {
+export class PartyLegalEntitiesService {
 
     protected basePath = 'http://localhost:8090';
     public defaultHeaders = new HttpHeaders();
@@ -56,21 +56,21 @@ export class PartyLocationsService {
 
 
     /**
-     * CreateLocation
-     * Create new Location. Validate Location not yet exist.
+     * CreateLegalEntity
+     * Create new legal entity. Validate legal entity not exist for this client
      * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
-     * @param body Location data specification for update.
+     * @param body Document with legal entity specification.
      * @param bearer JWT Bearer token
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public partyLocationsCreateLocation(partyId: string, body?: Location, bearer?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public partyLocationsCreateLocation(partyId: string, body?: Location, bearer?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public partyLocationsCreateLocation(partyId: string, body?: Location, bearer?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public partyLocationsCreateLocation(partyId: string, body?: Location, bearer?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public partyLegalEntitiesCreateLegalEntity(partyId: string, body?: LegalEntity, bearer?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public partyLegalEntitiesCreateLegalEntity(partyId: string, body?: LegalEntity, bearer?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public partyLegalEntitiesCreateLegalEntity(partyId: string, body?: LegalEntity, bearer?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public partyLegalEntitiesCreateLegalEntity(partyId: string, body?: LegalEntity, bearer?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (partyId === null || partyId === undefined) {
-            throw new Error('Required parameter partyId was null or undefined when calling partyLocationsCreateLocation.');
+            throw new Error('Required parameter partyId was null or undefined when calling partyLegalEntitiesCreateLegalEntity.');
         }
 
 
@@ -98,7 +98,7 @@ export class PartyLocationsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/locations`,
+        return this.httpClient.request<any>('post',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/legalentities`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -110,10 +110,10 @@ export class PartyLocationsService {
     }
 
     /**
-     * GetLocation
-     * Get location or list of locations from service.
+     * GetLegalEntity
+     * Get legal entity or list of legal entities from service.
      * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
-     * @param locationId Location Id to fetch and put records
+     * @param legalentityId Id of legal entity operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every client.
      * @param bearer JWT Bearer token
      * @param options Options specified additional requirements for returned entity. For example reconcile option will require to send events to data lake and mark as reconciliation. 
      * @param startTime Beginning of time window specified to limit objects with last updated in this time window.
@@ -121,17 +121,17 @@ export class PartyLocationsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public partyLocationsGetLocation(partyId: string, locationId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe?: 'body', reportProgress?: boolean): Observable<Location>;
-    public partyLocationsGetLocation(partyId: string, locationId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Location>>;
-    public partyLocationsGetLocation(partyId: string, locationId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Location>>;
-    public partyLocationsGetLocation(partyId: string, locationId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public partyLegalEntitiesGetLegalEntity(partyId: string, legalentityId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe?: 'body', reportProgress?: boolean): Observable<LegalEntity>;
+    public partyLegalEntitiesGetLegalEntity(partyId: string, legalentityId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LegalEntity>>;
+    public partyLegalEntitiesGetLegalEntity(partyId: string, legalentityId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LegalEntity>>;
+    public partyLegalEntitiesGetLegalEntity(partyId: string, legalentityId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (partyId === null || partyId === undefined) {
-            throw new Error('Required parameter partyId was null or undefined when calling partyLocationsGetLocation.');
+            throw new Error('Required parameter partyId was null or undefined when calling partyLegalEntitiesGetLegalEntity.');
         }
 
-        if (locationId === null || locationId === undefined) {
-            throw new Error('Required parameter locationId was null or undefined when calling partyLocationsGetLocation.');
+        if (legalentityId === null || legalentityId === undefined) {
+            throw new Error('Required parameter legalentityId was null or undefined when calling partyLegalEntitiesGetLegalEntity.');
         }
 
 
@@ -167,7 +167,7 @@ export class PartyLocationsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Location>('get',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/locations/${encodeURIComponent(String(locationId))}`,
+        return this.httpClient.request<LegalEntity>('get',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/legalentities/${encodeURIComponent(String(legalentityId))}`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -179,8 +179,8 @@ export class PartyLocationsService {
     }
 
     /**
-     * GetLocationList
-     * Get location or list of locations from service.
+     * GetLegalEntityList
+     * Get legal entity or list of legal entities from service.
      * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
      * @param bearer JWT Bearer token
      * @param options Options specified additional requirements for returned entity. For example reconcile option will require to send events to data lake and mark as reconciliation. 
@@ -190,13 +190,13 @@ export class PartyLocationsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public partyLocationsGetLocationList(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Location>>;
-    public partyLocationsGetLocationList(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Location>>>;
-    public partyLocationsGetLocationList(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Location>>>;
-    public partyLocationsGetLocationList(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public partyLegalEntitiesGetLegalEntityList(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<LegalEntity>>;
+    public partyLegalEntitiesGetLegalEntityList(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<LegalEntity>>>;
+    public partyLegalEntitiesGetLegalEntityList(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<LegalEntity>>>;
+    public partyLegalEntitiesGetLegalEntityList(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (partyId === null || partyId === undefined) {
-            throw new Error('Required parameter partyId was null or undefined when calling partyLocationsGetLocationList.');
+            throw new Error('Required parameter partyId was null or undefined when calling partyLegalEntitiesGetLegalEntityList.');
         }
 
 
@@ -236,7 +236,7 @@ export class PartyLocationsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<Location>>('get',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/locations`,
+        return this.httpClient.request<Array<LegalEntity>>('get',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/legalentities`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -248,26 +248,26 @@ export class PartyLocationsService {
     }
 
     /**
-     * ModifyLocation
-     * Change Location properties to values specified in request. Property not specified will remain same. No element of any collection will be deleted. 
+     * ModifyLegalEntity
+     * Change legal entity properties to values specified in request. Property not specified will remain same. No element of any collection will be deleted. 
      * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
-     * @param locationId Location Id to fetch and put records
-     * @param body Location data specification for update.
+     * @param legalentityId Id of legal entity operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every client.
+     * @param body Document with legal entity specification.
      * @param bearer JWT Bearer token
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public partyLocationsModifyLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public partyLocationsModifyLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public partyLocationsModifyLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public partyLocationsModifyLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public partyLegalEntitiesModifyLegalEntity(partyId: string, legalentityId: string, body?: LegalEntity, bearer?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public partyLegalEntitiesModifyLegalEntity(partyId: string, legalentityId: string, body?: LegalEntity, bearer?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public partyLegalEntitiesModifyLegalEntity(partyId: string, legalentityId: string, body?: LegalEntity, bearer?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public partyLegalEntitiesModifyLegalEntity(partyId: string, legalentityId: string, body?: LegalEntity, bearer?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (partyId === null || partyId === undefined) {
-            throw new Error('Required parameter partyId was null or undefined when calling partyLocationsModifyLocation.');
+            throw new Error('Required parameter partyId was null or undefined when calling partyLegalEntitiesModifyLegalEntity.');
         }
 
-        if (locationId === null || locationId === undefined) {
-            throw new Error('Required parameter locationId was null or undefined when calling partyLocationsModifyLocation.');
+        if (legalentityId === null || legalentityId === undefined) {
+            throw new Error('Required parameter legalentityId was null or undefined when calling partyLegalEntitiesModifyLegalEntity.');
         }
 
 
@@ -295,7 +295,7 @@ export class PartyLocationsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('patch',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/locations/${encodeURIComponent(String(locationId))}`,
+        return this.httpClient.request<any>('patch',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/legalentities/${encodeURIComponent(String(legalentityId))}`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -307,26 +307,26 @@ export class PartyLocationsService {
     }
 
     /**
-     * UpdateLocation
-     * Change location specification. Location will be created if not exist.
+     * UpdateLegalEntity
+     * Change legal entity specification. Legal entity will be created if not exist. 
      * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
-     * @param locationId Location Id to fetch and put records
-     * @param body Location data specification for update.
+     * @param legalentityId Id of legal entity operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every client.
+     * @param body Document with legal entity specification.
      * @param bearer JWT Bearer token
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public partyLocationsUpdateLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public partyLocationsUpdateLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public partyLocationsUpdateLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public partyLocationsUpdateLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public partyLegalEntitiesUpdateLegalEntity(partyId: string, legalentityId: string, body?: LegalEntity, bearer?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public partyLegalEntitiesUpdateLegalEntity(partyId: string, legalentityId: string, body?: LegalEntity, bearer?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public partyLegalEntitiesUpdateLegalEntity(partyId: string, legalentityId: string, body?: LegalEntity, bearer?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public partyLegalEntitiesUpdateLegalEntity(partyId: string, legalentityId: string, body?: LegalEntity, bearer?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (partyId === null || partyId === undefined) {
-            throw new Error('Required parameter partyId was null or undefined when calling partyLocationsUpdateLocation.');
+            throw new Error('Required parameter partyId was null or undefined when calling partyLegalEntitiesUpdateLegalEntity.');
         }
 
-        if (locationId === null || locationId === undefined) {
-            throw new Error('Required parameter locationId was null or undefined when calling partyLocationsUpdateLocation.');
+        if (legalentityId === null || legalentityId === undefined) {
+            throw new Error('Required parameter legalentityId was null or undefined when calling partyLegalEntitiesUpdateLegalEntity.');
         }
 
 
@@ -354,7 +354,7 @@ export class PartyLocationsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('put',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/locations/${encodeURIComponent(String(locationId))}`,
+        return this.httpClient.request<any>('put',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/legalentities/${encodeURIComponent(String(legalentityId))}`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,

@@ -17,14 +17,14 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Location } from '../model/location';
+import { Party } from '../model/party';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class PartyLocationsService {
+export class PartiesService {
 
     protected basePath = 'http://localhost:8090';
     public defaultHeaders = new HttpHeaders();
@@ -56,22 +56,17 @@ export class PartyLocationsService {
 
 
     /**
-     * CreateLocation
-     * Create new Location. Validate Location not yet exist.
-     * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
-     * @param body Location data specification for update.
+     * CreateParty
+     * Create new party. Validate party not exist yet.
+     * @param body Document with information about party.
      * @param bearer JWT Bearer token
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public partyLocationsCreateLocation(partyId: string, body?: Location, bearer?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public partyLocationsCreateLocation(partyId: string, body?: Location, bearer?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public partyLocationsCreateLocation(partyId: string, body?: Location, bearer?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public partyLocationsCreateLocation(partyId: string, body?: Location, bearer?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (partyId === null || partyId === undefined) {
-            throw new Error('Required parameter partyId was null or undefined when calling partyLocationsCreateLocation.');
-        }
+    public partiesCreateParty(body?: Party, bearer?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public partiesCreateParty(body?: Party, bearer?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public partiesCreateParty(body?: Party, bearer?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public partiesCreateParty(body?: Party, bearer?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
@@ -98,7 +93,7 @@ export class PartyLocationsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/locations`,
+        return this.httpClient.request<any>('post',`${this.basePath}/parties`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -110,10 +105,9 @@ export class PartyLocationsService {
     }
 
     /**
-     * GetLocation
-     * Get location or list of locations from service.
+     * GetParty
+     * Get party or list of parties from service.
      * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
-     * @param locationId Location Id to fetch and put records
      * @param bearer JWT Bearer token
      * @param options Options specified additional requirements for returned entity. For example reconcile option will require to send events to data lake and mark as reconciliation. 
      * @param startTime Beginning of time window specified to limit objects with last updated in this time window.
@@ -121,17 +115,13 @@ export class PartyLocationsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public partyLocationsGetLocation(partyId: string, locationId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe?: 'body', reportProgress?: boolean): Observable<Location>;
-    public partyLocationsGetLocation(partyId: string, locationId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Location>>;
-    public partyLocationsGetLocation(partyId: string, locationId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Location>>;
-    public partyLocationsGetLocation(partyId: string, locationId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public partiesGetParty(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe?: 'body', reportProgress?: boolean): Observable<Party>;
+    public partiesGetParty(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Party>>;
+    public partiesGetParty(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Party>>;
+    public partiesGetParty(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (partyId === null || partyId === undefined) {
-            throw new Error('Required parameter partyId was null or undefined when calling partyLocationsGetLocation.');
-        }
-
-        if (locationId === null || locationId === undefined) {
-            throw new Error('Required parameter locationId was null or undefined when calling partyLocationsGetLocation.');
+            throw new Error('Required parameter partyId was null or undefined when calling partiesGetParty.');
         }
 
 
@@ -167,7 +157,7 @@ export class PartyLocationsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Location>('get',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/locations/${encodeURIComponent(String(locationId))}`,
+        return this.httpClient.request<Party>('get',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -179,9 +169,8 @@ export class PartyLocationsService {
     }
 
     /**
-     * GetLocationList
-     * Get location or list of locations from service.
-     * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
+     * GetPartyList
+     * Get party or list of parties from service.
      * @param bearer JWT Bearer token
      * @param options Options specified additional requirements for returned entity. For example reconcile option will require to send events to data lake and mark as reconciliation. 
      * @param startTime Beginning of time window specified to limit objects with last updated in this time window.
@@ -190,14 +179,10 @@ export class PartyLocationsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public partyLocationsGetLocationList(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Location>>;
-    public partyLocationsGetLocationList(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Location>>>;
-    public partyLocationsGetLocationList(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Location>>>;
-    public partyLocationsGetLocationList(partyId: string, bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (partyId === null || partyId === undefined) {
-            throw new Error('Required parameter partyId was null or undefined when calling partyLocationsGetLocationList.');
-        }
+    public partiesGetPartyList(bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Party>>;
+    public partiesGetPartyList(bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Party>>>;
+    public partiesGetPartyList(bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Party>>>;
+    public partiesGetPartyList(bearer?: string, options?: string, startTime?: any, endTime?: any, search?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
@@ -236,7 +221,7 @@ export class PartyLocationsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<Location>>('get',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/locations`,
+        return this.httpClient.request<Array<Party>>('get',`${this.basePath}/parties`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -248,26 +233,21 @@ export class PartyLocationsService {
     }
 
     /**
-     * ModifyLocation
-     * Change Location properties to values specified in request. Property not specified will remain same. No element of any collection will be deleted. 
+     * UpdateParty
+     * Change party specification. Party will be created if not exist.
      * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
-     * @param locationId Location Id to fetch and put records
-     * @param body Location data specification for update.
+     * @param body Document with information about party.
      * @param bearer JWT Bearer token
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public partyLocationsModifyLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public partyLocationsModifyLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public partyLocationsModifyLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public partyLocationsModifyLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public partiesUpdateParty(partyId: string, body?: Party, bearer?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public partiesUpdateParty(partyId: string, body?: Party, bearer?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public partiesUpdateParty(partyId: string, body?: Party, bearer?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public partiesUpdateParty(partyId: string, body?: Party, bearer?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (partyId === null || partyId === undefined) {
-            throw new Error('Required parameter partyId was null or undefined when calling partyLocationsModifyLocation.');
-        }
-
-        if (locationId === null || locationId === undefined) {
-            throw new Error('Required parameter locationId was null or undefined when calling partyLocationsModifyLocation.');
+            throw new Error('Required parameter partyId was null or undefined when calling partiesUpdateParty.');
         }
 
 
@@ -295,66 +275,7 @@ export class PartyLocationsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('patch',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/locations/${encodeURIComponent(String(locationId))}`,
-            {
-                body: body,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * UpdateLocation
-     * Change location specification. Location will be created if not exist.
-     * @param partyId Id of party operation executed for. When start with $ it is Id, else it is name of object. When id not specified it is means operation apply to every party.
-     * @param locationId Location Id to fetch and put records
-     * @param body Location data specification for update.
-     * @param bearer JWT Bearer token
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public partyLocationsUpdateLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public partyLocationsUpdateLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public partyLocationsUpdateLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public partyLocationsUpdateLocation(partyId: string, locationId: string, body?: Location, bearer?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (partyId === null || partyId === undefined) {
-            throw new Error('Required parameter partyId was null or undefined when calling partyLocationsUpdateLocation.');
-        }
-
-        if (locationId === null || locationId === undefined) {
-            throw new Error('Required parameter locationId was null or undefined when calling partyLocationsUpdateLocation.');
-        }
-
-
-
-        let headers = this.defaultHeaders;
-        if (bearer !== undefined && bearer !== null) {
-            headers = headers.set('bearer', String(bearer));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.request<any>('put',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}/locations/${encodeURIComponent(String(locationId))}`,
+        return this.httpClient.request<any>('put',`${this.basePath}/parties/${encodeURIComponent(String(partyId))}`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
